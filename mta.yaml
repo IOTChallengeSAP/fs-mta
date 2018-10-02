@@ -2,13 +2,7 @@ ID: fs_mta
 _schema-version: '3.1'
 version: 0.0.2
 modules:
-  - name: fs-mta-db
-    type: hdb
-    path: fs-mta-db
-    requires:
-      - name: hdi_fs-mta-db
-    parameters:
-      memory: 128M
+  
   - name: fs-mta-js
     type: nodejs
     path: fs-mta-js
@@ -20,12 +14,3 @@ modules:
       - name: hdi_fs-mta-db
     parameters:
       memory: 128M
-resources:
-  - name: hdi_fs-mta-db
-    parameters:
-      config:
-        schema: FS_MTA_DB
-        database_id: 23cf2f04-e929-4973-938e-2b5963744661
-    properties:
-      hdi-container-name: '${service-name}'
-    type: com.sap.xs.hdi-container
