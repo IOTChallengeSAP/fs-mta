@@ -10,7 +10,5 @@ modules:
       - name: fs-mta-js_api
         properties:
           url: '${default-url}'
-    requires:
-      - name: hdi_fs-mta-db
     parameters:
       memory: 128M
