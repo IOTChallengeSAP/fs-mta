@@ -6,17 +6,17 @@ import com.sap.piper.ConfigurationMerger
 
 /**
  *	Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
- *
+ * s
  *	This software is the confidential and proprietary information of SAP
  *	("Confidential Information"). You shall not disclose such Confidential
  *	Information and shall use it only in accordance with the terms of the
  *	license agreement you entered into with SAP.
 */
 
-@Library('piper-library-os') _
+@Library('piper-lib-os') _
 
-CONFIG_FILE_PROPERTIES = '.pipeline/config.properties'
-CONFIG_FILE_YML = '.pipeline/config.yml'
+CONFIG_FILE_PROPERTIES = 'x.pipeline/config.properties'
+CONFIG_FILE_YML = 'x.pipeline/config.yml'
 
 node() {
   //Global variables:
@@ -50,7 +50,9 @@ node() {
                                                         ConfigurationLoader.stepConfiguration(this, STEP_CONFIG_MTA_BUILD), (Set)['mtaJarLocation'],
                                                         ConfigurationLoader.defaultStepConfiguration(this, 'mtaBuild'))
     }
-    MTA_JAR_LOCATION = mtaBuildConfiguration.mtaJarLocation ?: commonPipelineEnvironment.getConfigProperty('MTA_HOME')
+    echo "VOR MTA_BUILD"
+    MTA_JAR_LOCATION = commonPipelineEnvironment.getConfigProperty('MTA_HOME')
+    echo "MTA Jar Location: ${MTA_JAR_LOCATION}"
     NEO_HOME = neoDeployConfiguration.neoHome ?: commonPipelineEnvironment.getConfigProperty('NEO_HOME')
     proxy = commonPipelineEnvironment.getConfigProperty('proxy') ?: ''
     httpsProxy = commonPipelineEnvironment.getConfigProperty('httpsProxy') ?: ''
@@ -59,7 +61,7 @@ node() {
   stage("Build Fiori App"){
     dir(SRC){
       withEnv(["http_proxy=${proxy}", "https_proxy=${httpsProxy}"]) {
-        MTAR_FILE_PATH = mtaBuild script: this, mtaJarLocation: MTA_JAR_LOCATION, buildTarget: 'NEO'
+        MTAR_FILE_PATH = mtaBuild script: this, mtaJarLocation: MTA_JAR_LOCATION, buildTarget: 'CF'
       }
     }
   }
