@@ -66,7 +66,7 @@ node() {
     }
   }
   
-  stage("Deploy Fiori App")
+  stage("Deploy Fiori App"){
   echo "hier im Deploy"
     dir(SRC){
       withEnv(["http_proxy=${proxy}", "https_proxy=${httpsProxy}"]) {
